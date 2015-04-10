@@ -36,20 +36,9 @@
                         tFront, rFront, bFront, lFront, bgFront;
 
                     // Direction and position
-                    if(self.params.direction != 'vertical') self.params.direction = 'horizontal';
-                    if(self.params.direction == 'vertical' && self.params.position != 'right') self.params.position = 'left';
-                    if(self.params.direction == 'horizontal' && self.params.position != 'bottom') self.params.position = 'top';
-
-                    if(self.params.direction == 'vertical') {
-                        bBack = tBack = 0;
-                        if(self.params.position == 'right') {
-                            rBack = 0;
-                            lBack = 'auto';
-                        } else {
-                            rBack = 'auto';
-                            lBack = 0;
-                        }
-                    } else {
+                    if(self.params.direction != 'vertical') {
+                        self.params.direction = 'horizontal';
+                        self.params.position = ( self.params.position != 'bottom' ? 'top' : 'bottom' );
                         rBack = lBack = 0;
                         if(self.params.position == 'bottom') {
                             tBack = 'auto';
@@ -57,6 +46,16 @@
                         } else {
                             tBack =  0;
                             bBack = 'auto';
+                        }
+                    } else {
+                        self.params.position = ( self.params.position != 'right' ? 'left' : 'right' );
+                        bBack = tBack = 0;
+                        if(self.params.position == 'right') {
+                            rBack = 0;
+                            lBack = 'auto';
+                        } else {
+                            rBack = 'auto';
+                            lBack = 0;
                         }
                     }
 
@@ -74,33 +73,33 @@
                     }
 
                     self.$front.css({
-                        background : self.params.frontColor,
-                        bottom : bFront,
                         height : 0,
-                        left : lFront,
+                        width : 0,
                         margin: 0,
-                        overflow: 'hidden',
                         padding: 0,
-                        position: 'absolute',
-                        right : rFront,
                         top: tFront,
-                        width : 0
+                        right : rFront,
+                        bottom : bFront,
+                        left : lFront,
+                        background : self.params.frontColor,
+                        overflow: 'hidden',
+                        position: 'absolute'
                     }).appendTo(self.$back);
 
                     self.$back.css({
-                        background : self.params.backColor,
-                        bottom: bBack,
+                        width : 0,
                         height : 0,
-                        left : lBack,
-                        opacity: self.params.opacity,
                         margin: 0,
+                        padding: 0,
+                        top: tBack,
+                        right : rBack,
+                        bottom: bBack,
+                        left : lBack,
+                        background : self.params.backColor,
+                        opacity: self.params.opacity,
                         overflow: 'hidden',
                         position: 'fixed',
-                        padding: 0,
-                        right : rBack,
-                        top: tBack,
-                        width : 0,
-                        zIndex : self.params.zindex,
+                        zIndex : self.params.zindex
                     }).appendTo('body');
 
                     $(window).on("load resize scroll orientationchange", function() {
