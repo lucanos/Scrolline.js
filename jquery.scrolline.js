@@ -48,7 +48,7 @@
                             bBack = 'auto';
                         }
                     } else {
-                        self.params.position = ( self.params.position != 'right' ? 'left' : 'right' );
+                        self.params.position = ( self.params.position != 'left' ? 'right' : 'left' );
                         bBack = tBack = 0;
                         if(self.params.position == 'right') {
                             rBack = 0;
@@ -111,18 +111,18 @@
                     var self = this,
                         hWin = $(window).height(),
                         wWin = $(window).width(),
-                        hDoc = $(document).height(),
+                        hDoc = $(document).height() - hWin,
                         scrollValue = $(window).scrollTop(),
                         wBack, hBack, wFront, hFront, scrollineVal, wRef;
 
                     if(self.params.direction == 'vertical') {
-                        scrollineVal = (scrollValue + hWin) * hWin / hDoc;
+                        scrollineVal = scrollValue * hWin / hDoc;
                         wBack = self.params.weight;
                         hBack = wRef = hWin;
                         wFront = self.params.weight;
                         hFront = scrollineVal;
                     } else {
-                        scrollineVal = (scrollValue + hWin) * wWin / hDoc;
+                        scrollineVal = scrollValue * wWin / hDoc;
                         wBack = wRef = wWin;
                         hBack = self.params.weight;
                         wFront = scrollineVal;
